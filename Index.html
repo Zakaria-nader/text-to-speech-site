@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تحويل النص إلى صوت</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 30px; direction: rtl; }
+    textarea { width: 90%; height: 150px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
+    audio { margin-top: 20px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>محوّل النص إلى صوت</h2>
+  <textarea id="textInput" placeholder="اكتب النص هنا..."></textarea><br>
+  <button onclick="convertTextToSpeech()">تحويل</button>
+  <div id="audioContainer" style="display:none;">
+    <h3>الصوت الناتج:</h3>
+    <audio id="audioPlayer" controls></audio>
+    <br>
+    <a id="downloadLink" href="#" download="voice.mp3">تحميل الصوت</a>
+  </div>
+
+  <script>
+    function convertTextToSpeech() {
+      const text = document.getElementById("textInput").value;
+      const lang = "ar";
+      const encodedText = encodeURIComponent(text);
+      const ttsURL = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${lang}&client=tw-ob`;
+
+      const audio = document.getElementById("audioPlayer");
+      audio.src = ttsURL;
+      document.getElementById("audioContainer").style.display = "block";
+
+      const link = document.getElementById("downloadLink");
+      link.href = ttsURL;
+    }
+  </script>
+</body>
+</html>
